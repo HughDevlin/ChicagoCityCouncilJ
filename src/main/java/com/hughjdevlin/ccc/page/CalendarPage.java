@@ -29,8 +29,8 @@ public class CalendarPage extends AbstractPage {
 		driver.findElement(By.id("ctl00_ContentPlaceHolder1_lstBodies_Arrow")).click();
 		driver.findElement(By.xpath("//li[@class='rcbItem ' and .='City Council']")).click();
 		driver.findElement(By.id("ctl00_ContentPlaceHolder1_btnSearch")).click();
-	    for(WebElement row : getRows()) {
-	    	List<WebElement> tds = row.findElements(By.tagName("td"));
+	    for(WebElement tr : getRows()) {
+	    	List<WebElement> tds = tr.findElements(By.tagName("td"));
 	    	if(tds.size() < 5)
 	    		continue;
 	    	Date date = dateFormat.parse(tds.get(1).getText());

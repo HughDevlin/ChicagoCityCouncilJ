@@ -5,33 +5,30 @@ package com.hughjdevlin.ccc.page;
 
 import static org.junit.Assert.*;
 
-import java.net.MalformedURLException;
-import java.text.ParseException;
-
+import java.net.URL;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.hughjdevlin.ccc.page.CalendarPage;
 
 /**
  * @author hugh
  *
  */
-public class CalendarPageTest {
-	CalendarPage page;
+public class VotePageTest {
+	private static String url = "http://chicago.legistar.com/HistoryDetail.aspx?ID=6688873&GUID=E6BD8439-E2BB-4310-A02F-71B71F862111";
+	VotePage page;
 	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		page = new CalendarPage();
+		page = new VotePage(new URL(url));
 	}
 
 	@Test
-	public void testMeetingCount() throws ParseException, MalformedURLException {
-		assertEquals("meetings count", 36, page.meetings().size());
+	public void testLegislationCount() {
+		assertEquals("votes count", 50, page.votes().size());
 	}
 
 	/**

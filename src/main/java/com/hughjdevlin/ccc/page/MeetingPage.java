@@ -26,8 +26,8 @@ public class MeetingPage extends AbstractPage {
 
 	public List<Legislation> legislation() throws MalformedURLException {
 		List<Legislation>  result = new ArrayList<Legislation> ();
-	    for(WebElement row : getRows()) {
-	    	List<WebElement> tds = row.findElements(By.tagName("td"));
+	    for(WebElement tr : getRows()) {
+	    	List<WebElement> tds = tr.findElements(By.tagName("td"));
 	    	if(tds.size() < 8)
 	    		continue;
 	    	WebElement td = tds.get(0); // 1st column

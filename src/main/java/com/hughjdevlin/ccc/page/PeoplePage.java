@@ -22,8 +22,8 @@ public class PeoplePage extends AbstractPage {
 	
 	public List<Person> people() throws MalformedURLException {
 		List<Person> result = new ArrayList<Person>();
-	    for(WebElement row : getRows()) {
-	    	List<WebElement> tds = row.findElements(By.tagName("td"));
+	    for(WebElement tr : getRows()) {
+	    	List<WebElement> tds = tr.findElements(By.tagName("td"));
 	    	if(tds.size() < 2)
 	    		continue;
 	    	WebElement td = tds.get(0); // 1st column

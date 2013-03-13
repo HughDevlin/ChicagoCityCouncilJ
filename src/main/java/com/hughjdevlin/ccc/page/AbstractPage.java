@@ -20,11 +20,17 @@ public abstract class AbstractPage {
 	}
 
 	/**
+	 * @return tr elements from a table
+	 */
+	protected List<WebElement> getRows(By by) {
+		return driver.findElement(by).findElements(By.tagName("tr"));
+	}
+
+	/**
 	 * @return tr elements from the master table
 	 */
 	protected List<WebElement> getRows() {
-		List<WebElement> rows = driver.findElement(By.className("rgMasterTable")).findElements(By.tagName("tr"));
-		return rows;
+		return getRows(By.className("rgMasterTable"));
 	}
 
 }
