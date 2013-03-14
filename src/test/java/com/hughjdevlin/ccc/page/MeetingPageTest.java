@@ -32,6 +32,22 @@ public class MeetingPageTest {
 		assertEquals("legislation count", 200, page.legislation().size());
 	}
 
+	@Test
+	public void testPages() {
+		assertEquals("pages", 2, page.pages());
+	}
+
+	@Test
+	public void testPage() {
+		assertEquals("page", 1, page.page());
+	}
+
+	@Test
+	public void testNext() {
+		page.next();
+		assertEquals("next", 2, page.page());
+	}
+
 	/**
 	 * @throws java.lang.Exception
 	 */

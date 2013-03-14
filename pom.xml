@@ -34,5 +34,10 @@
   		<artifactId>commons-lang3</artifactId>
   		<version>3.1</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.seleniumhq.selenium</groupId>
+  		<artifactId>selenium-support</artifactId>
+  		<version>2.31.0</version>
+  	</dependency>
   </dependencies>
 </project>

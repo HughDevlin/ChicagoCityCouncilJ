@@ -27,7 +27,7 @@ public class VotePageTest {
 	}
 
 	@Test
-	public void testLegislationCount() {
+	public void testVotesCount() {
 		assertEquals("votes count", 50, page.votes().size());
 	}
 

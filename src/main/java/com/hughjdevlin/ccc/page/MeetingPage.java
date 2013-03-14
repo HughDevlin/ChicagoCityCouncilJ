@@ -7,7 +7,12 @@ import java.net.URL;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hughjdevlin.ccc.Legislation;
 
@@ -44,6 +49,37 @@ public class MeetingPage extends AbstractPage {
 	    	result.add(new Legislation(name, title, url, votesUrl));
 	    }
 	 	return result;
+	}
+
+	public int pages() {
+		return driver.findElement(By.className("rgPager")).findElements(By.tagName("a")).size();
+	}
+	
+	public int page() {
+		WebElement a = (new WebDriverWait(driver, 120))
+				.until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
+		Wait wait = new WebDriverWait(driver, 120);
+		ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver d) {
+				WebElement result = d.findElement(By.className("rgCurrentPage"));
+				return (result.getText().length() > 0);
+			}
+		};
+		wait.until(condition);
+		a = (new WebDriverWait(driver, 120))
+				.until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
+		String text = a.getText();
+		int page = Integer.parseInt(text);
+		return page;
+	}
+	
+	public void next() {
+		int page = page(); // one based
+		WebElement tr = driver.findElement(By.className("rgPager"));
+		List<WebElement> as = tr.findElements(By.tagName("a"));
+		WebElement a = as.get(page); // zero based
+		a.click();
 	}
 
 }
