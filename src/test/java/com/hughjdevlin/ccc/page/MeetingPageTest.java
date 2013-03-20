@@ -38,12 +38,12 @@ public class MeetingPageTest {
 	}
 
 	@Test
-	public void testPage() {
+	public void testPage() throws InterruptedException {
 		assertEquals("page", 1, page.page());
 	}
 
 	@Test
-	public void testNext() {
+	public void testNext() throws InterruptedException {
 		page.next();
 		assertEquals("next", 2, page.page());
 	}

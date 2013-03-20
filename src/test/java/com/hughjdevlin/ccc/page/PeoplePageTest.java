@@ -5,17 +5,13 @@ package com.hughjdevlin.ccc.page;
 
 import static org.junit.Assert.*;
 
-import java.net.MalformedURLException;
-
-import org.junit.After;
+import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
-
 import com.hughjdevlin.ccc.page.PeoplePage;
 
 /**
  * @author hugh
- *
  */
 public class PeoplePageTest {
 	PeoplePage page;
@@ -29,16 +25,8 @@ public class PeoplePageTest {
 	}
 
 	@Test
-	public void testPeopleCount() throws MalformedURLException {
-		assertEquals("people count", 52, page.people().size());
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		page.close();
+	public void testPeopleCount() throws IOException {
+		assertEquals("people count", 52, page.persons().size());
 	}
 
 }

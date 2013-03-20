@@ -1,36 +1,29 @@
 package com.hughjdevlin.ccc.page;
 
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractPage {
-	protected WebDriver driver = new FirefoxDriver();
-
-	protected AbstractPage(URL url) {
-		driver.get(url.toString());
-	}
-
-	public void close() {
-		driver.quit();
+	protected static final String URL_BASE = "http://chicago.legistar.com/"; 
+	
+	/**
+	 * File portion to URL; prepend base
+	 * @param url file portion
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	public static URL getUrl(String url) throws MalformedURLException {
+		return new URL(URL_BASE + url);
 	}
 
 	/**
-	 * @return tr elements from a table
+	 * URL to shortened Stringl trim base
+	 * @param url
+	 * @return file portion
 	 */
-	protected List<WebElement> getRows(By by) {
-		return driver.findElement(by).findElements(By.tagName("tr"));
+	public static String getUrl(URL url) {
+		return StringUtils.substringAfter(url.toString(), URL_BASE);
 	}
-
-	/**
-	 * @return tr elements from the master table
-	 */
-	protected List<WebElement> getRows() {
-		return getRows(By.className("rgMasterTable"));
-	}
-
+	
 }

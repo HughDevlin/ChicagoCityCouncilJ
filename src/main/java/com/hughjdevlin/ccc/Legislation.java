@@ -4,10 +4,12 @@ import java.net.URL;
 
 public class Legislation {
 
-	private String name;
-	private String title;
-	private URL url;
-	private URL voteUrl;
+	private final String name;
+	private final String title;
+	private final String status;
+	private final String result;
+	private final URL url;
+	private final URL voteUrl;
 
 	/**
 	 * @param name
@@ -15,9 +17,11 @@ public class Legislation {
 	 * @param role
 	 * @throws MalformedURLException 
 	 */
-	public Legislation(String name, String title, URL url, URL voteUrl) {
+	public Legislation(String name, String title, String status, String result, URL url, URL voteUrl) {
 		this.name = name;
 		this.title = title;
+		this.status = status;
+		this.result = result;
 		this.url = url;
 		this.voteUrl = voteUrl;
 	}
@@ -41,6 +45,20 @@ public class Legislation {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @return the result
+	 */
+	public String getResult() {
+		return result;
 	}
 
 	/**

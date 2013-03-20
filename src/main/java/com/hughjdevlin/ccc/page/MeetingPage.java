@@ -1,3 +1,8 @@
+/*
+ * source of legislation information
+ * page-able
+ * 
+ */
 package com.hughjdevlin.ccc.page;
 
 import java.util.ArrayList;
@@ -16,21 +21,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hughjdevlin.ccc.Legislation;
 
-public class MeetingPage extends AbstractPage {
+public class MeetingPage extends AbstractWebDriverPage {
 	
 	public MeetingPage(URL url) {
 		super(url);
 	}
 	
-	private String getVotesHref(WebElement a) {
-		a.click(); // link to votes
-		String href = driver.findElement(By.name("HistoryDetail")).getAttribute("src");
-		driver.switchTo().defaultContent();
-		return href;
-	}
-
 	public List<Legislation> legislation() throws MalformedURLException {
-		List<Legislation>  result = new ArrayList<Legislation> ();
+		List<Legislation> returnValue = new ArrayList<Legislation> ();
 	    for(WebElement tr : getRows()) {
 	    	List<WebElement> tds = tr.findElements(By.tagName("td"));
 	    	if(tds.size() < 8)
@@ -42,39 +40,42 @@ public class MeetingPage extends AbstractPage {
 	    	String href = td.findElement(By.tagName("a")).getAttribute("href");
 	    	URL url = new URL(StringUtils.substringBeforeLast(href, "&Options=&Search="));
 	    	String title = tds.get(4).getText();
-	    	String votesHref = getVotesHref(tds.get(7).findElement(By.tagName("a")));
+	    	String status = tds.get(5).getText();
+	    	String result = tds.get(6).getText();    	
+	    	String votesHref = StringUtils.substringBefore(StringUtils.substringAfter(tds.get(7).findElement(By.tagName("a")).getAttribute("onclick"), "'"), "'");
 	    	if(votesHref==null)
 	    		continue;
-	    	URL votesUrl = new URL(votesHref);
-	    	result.add(new Legislation(name, title, url, votesUrl));
+	    	URL votesUrl = getUrl(votesHref);
+	    	returnValue.add(new Legislation(name, title, status, result, url, votesUrl));
 	    }
-	 	return result;
+	 	return returnValue;
 	}
 
 	public int pages() {
 		return driver.findElement(By.className("rgPager")).findElements(By.tagName("a")).size();
 	}
 	
-	public int page() {
-		WebElement a = (new WebDriverWait(driver, 120))
-				.until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
+	public int page() throws InterruptedException {
+		(new WebDriverWait(driver, 120)).until(ExpectedConditions.presenceOfElementLocated(By.className("rgMasterTable")));
+		(new WebDriverWait(driver, 120)).until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
+		Thread.sleep(10000);
+		getRows(); // delay
+		(new WebDriverWait(driver, 120)).until(ExpectedConditions.presenceOfElementLocated(By.className("rgMasterTable")));
+		(new WebDriverWait(driver, 120)).until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
 		Wait wait = new WebDriverWait(driver, 120);
 		ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver d) {
-				WebElement result = d.findElement(By.className("rgCurrentPage"));
-				return (result.getText().length() > 0);
+				return d.findElement(By.className("rgCurrentPage")).getText().length() > 0;
 			}
 		};
 		wait.until(condition);
-		a = (new WebDriverWait(driver, 120))
-				.until(ExpectedConditions.presenceOfElementLocated(By.className("rgCurrentPage")));
-		String text = a.getText();
+		String text = getMasterTable().findElement(By.className("rgCurrentPage")).getText();
 		int page = Integer.parseInt(text);
 		return page;
 	}
 	
-	public void next() {
+	public void next() throws InterruptedException {
 		int page = page(); // one based
 		WebElement tr = driver.findElement(By.className("rgPager"));
 		List<WebElement> as = tr.findElements(By.tagName("a"));

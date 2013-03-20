@@ -1,3 +1,6 @@
+/*
+ * source of meeting information
+ */
 package com.hughjdevlin.ccc.page;
 
 import java.text.DateFormat;
@@ -14,15 +17,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class CalendarPage extends AbstractPage {
-	private final static String URL = "http://chicago.legistar.com/Calendar.aspx";
-	private final static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+public class CalendarPage extends AbstractWebDriverPage {
+	private final static String URL = "Calendar.aspx";
 	
 	public CalendarPage() throws MalformedURLException {
-		super(new URL(URL));
+		super(getUrl(URL));
 	}
 
 	public Map<Date, URL> meetings() throws ParseException, MalformedURLException {
+		final DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Map<Date, URL> result = new HashMap<Date, URL>();
 		driver.findElement(By.id("ctl00_ContentPlaceHolder1_lstYears_Arrow")).click();
 		driver.findElement(By.className("rcbItem")).click();
@@ -37,7 +40,7 @@ public class CalendarPage extends AbstractPage {
 	    	String href = tds.get(4).findElement(By.tagName("a")).getAttribute("href");
 	    	if(href==null)
 	    		continue;
-	    	URL url = new URL(StringUtils.substringBeforeLast(href, "&Options=info|&Search="));
+	    	URL url = new URL(StringUtils.substringBefore(href, "&Options=info|&Search="));
 	    	result.put(date, url);
 	    }
 	 	return result;
