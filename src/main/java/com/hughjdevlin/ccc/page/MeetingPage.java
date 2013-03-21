@@ -34,19 +34,20 @@ public class MeetingPage extends AbstractWebDriverPage {
 	    	if(tds.size() < 8)
 	    		continue;
 	    	WebElement td = tds.get(0); // 1st column
-	    	String name = td.getText();
+	    	String name = normalize(td.getText());
 	    	if(name.length()==0)
 	    		continue;
 	    	String href = td.findElement(By.tagName("a")).getAttribute("href");
 	    	URL url = new URL(StringUtils.substringBeforeLast(href, "&Options=&Search="));
-	    	String title = tds.get(4).getText();
-	    	String status = tds.get(5).getText();
-	    	String result = tds.get(6).getText();    	
+	    	String type = normalize(tds.get(3).getText());
+	    	String title = normalize(tds.get(4).getText());
+	    	String status = normalize(tds.get(5).getText());
+	    	String result = normalize(tds.get(6).getText());    	
 	    	String votesHref = StringUtils.substringBefore(StringUtils.substringAfter(tds.get(7).findElement(By.tagName("a")).getAttribute("onclick"), "'"), "'");
 	    	if(votesHref==null)
 	    		continue;
 	    	URL votesUrl = getUrl(votesHref);
-	    	returnValue.add(new Legislation(name, title, status, result, url, votesUrl));
+	    	returnValue.add(new Legislation(name, type, title, status, result, url, votesUrl));
 	    }
 	 	return returnValue;
 	}

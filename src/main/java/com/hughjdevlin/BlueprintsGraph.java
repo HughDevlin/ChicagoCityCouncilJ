@@ -1,7 +1,10 @@
 /**
  * A Blueprints graph
- * (threfore a digraph and a multi-graph)
+ * (therefore a digraph and a multi-graph)
  * implemented as a Neo4j graph
+ * 
+ * http://www.tinkerpop.com/docs/javadocs/blueprints/2.2.0/
+ * http://github.com/tinkerpop/blueprints/wiki
  * 
  * 2012-03-15 HJD
  */
@@ -11,6 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.io.FileUtils;
+
+import com.tinkerpop.blueprints.Edge;
+import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
 
 /**
@@ -81,6 +87,25 @@ public class BlueprintsGraph extends Neo4jGraph {
 			"Mean degree=" + meanDegree() + "\n";
 		return result;
 	}
-	
+
+	/* 
+	 * Neo4j ignores id suggestions;
+	 * feature ignoresSuppliedIds: true
+	 * (non-Javadoc)
+	 * @see com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph#addEdge(java.lang.Object, com.tinkerpop.blueprints.Vertex, com.tinkerpop.blueprints.Vertex, java.lang.String)
+	 */
+	public Edge addEdge(Vertex outVertex, Vertex inVertex, String label) {
+		return super.addEdge(null, outVertex, inVertex, label);
+	}
+
+	/* 
+	 * Neo4j ignores id suggestions;
+	 * feature ignoresSuppliedIds: true
+	 * (non-Javadoc)
+	 * @see com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph#addVertex(java.lang.Object)
+	 */
+	public Vertex addVertex() {
+		return super.addVertex(null);
+	}
 
 }

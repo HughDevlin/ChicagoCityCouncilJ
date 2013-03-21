@@ -35,8 +35,8 @@ public class VotePage extends AbstractDomPage {
 				NodeList tds = tr.getElementsByTagName("td");
 		    	if(tds.getLength() < 2)
 		    		continue;
-		    	String name = tds.item(0).getTextContent();
-		    	String vote = tds.item(1).getTextContent();
+		    	String name = normalize(tds.item(0).getTextContent());
+		    	String vote = normalize(tds.item(1).getTextContent());
 		    	result.put(name, vote);
 		    } // end for
 		} // end if

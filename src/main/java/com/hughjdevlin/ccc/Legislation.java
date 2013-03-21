@@ -5,6 +5,7 @@ import java.net.URL;
 public class Legislation {
 
 	private final String name;
+	private final String type;
 	private final String title;
 	private final String status;
 	private final String result;
@@ -17,8 +18,9 @@ public class Legislation {
 	 * @param role
 	 * @throws MalformedURLException 
 	 */
-	public Legislation(String name, String title, String status, String result, URL url, URL voteUrl) {
+	public Legislation(String name, String type, String title, String status, String result, URL url, URL voteUrl) {
 		this.name = name;
+		this.type = type;
 		this.title = title;
 		this.status = status;
 		this.result = result;
@@ -31,6 +33,13 @@ public class Legislation {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
 	}
 
 	/**

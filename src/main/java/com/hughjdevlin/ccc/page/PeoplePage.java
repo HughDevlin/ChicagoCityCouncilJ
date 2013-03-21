@@ -29,11 +29,11 @@ public class PeoplePage extends AbstractDomPage {
 	    	if(tds.getLength() < 2)
 	    		continue;
 	    	Element td0 = (Element) tds.item(0); // 1st column
-	    	String name = td0.getTextContent();
+	    	String name = normalize(td0.getTextContent());
 	    	Element a = (Element) td0.getElementsByTagName("a").item(0);
 	    	String href = a.getAttribute("href");
 	    	URL url1 = AbstractWebDriverPage.getUrl(StringUtils.substringBeforeLast(href, "&Search="));
-	    	String role = tds.item(1).getTextContent(); // 2nd column
+	    	String role = normalize(tds.item(1).getTextContent()); // 2nd column
 			result.add(new Person(name, url1, role));
 	    }
 		return result;

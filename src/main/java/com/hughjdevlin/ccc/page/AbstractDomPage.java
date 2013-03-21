@@ -14,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 import org.xml.sax.SAXException;
@@ -22,6 +21,16 @@ import org.xml.sax.SAXException;
 public class AbstractDomPage extends AbstractPage {
 	protected Document document;
 	
+	/**
+	 * JTidy
+	 * http://jtidy.sourceforge.net/
+	 * http://jtidy.sourceforge.net/apidocs/
+	 * 
+	 * @param url
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
 	public AbstractDomPage(URL url) throws ParserConfigurationException, IOException, SAXException {
 		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		final DocumentBuilder db = dbf.newDocumentBuilder();
@@ -40,9 +49,7 @@ public class AbstractDomPage extends AbstractPage {
 	}
 
 	protected NodeList getRows(String tableId) {
-		Element table = document.getElementById(tableId);
-		Element tbody = (Element) table.getElementsByTagName("tbody").item(0);
-		return tbody.getElementsByTagName("tr");	
+		return document.getElementById(tableId).getElementsByTagName("tr");	
 	}
 
 }

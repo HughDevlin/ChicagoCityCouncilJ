@@ -11,6 +11,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public abstract class AbstractWebDriverPage extends AbstractPage {
 	protected WebDriver driver = new FirefoxDriver();
 	
+	/**
+	 * WebDriver
+	 * http://docs.seleniumhq.org/docs/03_webdriver.jsp
+	 * http://selenium.googlecode.com/svn/trunk/docs/api/java/index.html
+	 * 
+	 * @param url
+	 */
 	protected AbstractWebDriverPage(URL url) {
 		driver.get(url.toString());
 	}

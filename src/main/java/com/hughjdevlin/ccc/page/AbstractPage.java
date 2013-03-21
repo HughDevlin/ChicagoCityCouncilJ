@@ -26,4 +26,14 @@ public abstract class AbstractPage {
 		return StringUtils.substringAfter(url.toString(), URL_BASE);
 	}
 	
+	/**
+	 * replace whitespace with blank
+	 * right & left trim
+	 * @param s String
+	 * @return
+	 */
+	protected static String normalize(String s) {
+		return s.replaceAll("\\s", " ").trim();
+	}
+	
 }
