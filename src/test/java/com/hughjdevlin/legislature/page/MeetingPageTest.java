@@ -1,15 +1,18 @@
 /**
  * 
  */
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.hughjdevlin.legislature.page.MeetingPage;
 
 /**
  * @author hugh
@@ -34,7 +37,7 @@ public class MeetingPageTest {
 
 	@Test
 	public void testPages() {
-		assertEquals("pages", 2, page.pages());
+		assertEquals("pages", 3, page.pages());
 	}
 
 	@Test

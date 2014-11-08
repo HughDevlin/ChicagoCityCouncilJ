@@ -1,4 +1,4 @@
-package com.hughjdevlin.ccc;
+package com.hughjdevlin.legislature;
 
 import java.net.URL;
 

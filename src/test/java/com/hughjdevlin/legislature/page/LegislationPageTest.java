@@ -1,12 +1,15 @@
 /**
  * 
  */
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.hughjdevlin.legislature.page.LegislationPage;
 
 /**
  * @author hugh
@@ -30,7 +33,15 @@ public class LegislationPageTest {
 
 	@Test
 	public void testPdf() {
-		assertEquals("pdf url", "View.ashx?M=F&ID=2282443&GUID=2ACA9159-E392-463F-9E32-214BCB4EE267", page.pdf());
+		assertEquals("pdf url", "https://chicago.legistar.com/View.ashx?M=F&ID=2282443&GUID=2ACA9159-E392-463F-9E32-214BCB4EE267", page.pdf());
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		page.close();
 	}
 
 }

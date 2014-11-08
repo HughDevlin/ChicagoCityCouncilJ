@@ -1,1 +1,1 @@
-java -cp *:lib/* com.hughjdevlin.ccc.Graph $*
+java -cp *:lib/* com.hughjdevlin.legislature.Graph $*

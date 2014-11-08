@@ -1,16 +1,18 @@
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.xml.sax.SAXException;
 
-public class VotePage extends AbstractDomPage {
+public class VotePage extends AbstractWebDriverPage {
 	
 	/**
 	 * @param url
@@ -28,18 +30,14 @@ public class VotePage extends AbstractDomPage {
 	 */
 	public Map<String, String> votes() {
 		Map<String, String> result = new HashMap<String, String>();
-		NodeList trs = getRows("ctl00_ContentPlaceHolder1_gridVote_ctl00");
-		if(trs.getLength() > 1) { // placed on file?
-			for(int i = 0; i < trs.getLength(); i++) {
-				Element tr = (Element) trs.item(i);
-				NodeList tds = tr.getElementsByTagName("td");
-		    	if(tds.getLength() < 2)
-		    		continue;
-		    	String name = normalize(tds.item(0).getTextContent());
-		    	String vote = normalize(tds.item(1).getTextContent());
-		    	result.put(name, vote);
-		    } // end for
-		} // end if
+		for(WebElement tr : getRows()) {
+			List<WebElement> tds = tr.findElements(By.tagName("td"));
+	    	if(tds.size() < 2)
+	    		continue;
+	    	String name = normalize(tds.get(0).getText());
+	    	String vote = normalize(tds.get(1).getText());
+	    	result.put(name, vote);
+	    } // end for
 	 	return result;
 	}
 

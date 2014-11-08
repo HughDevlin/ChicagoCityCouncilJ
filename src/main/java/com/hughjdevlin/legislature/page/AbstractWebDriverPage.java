@@ -1,5 +1,7 @@
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -22,6 +24,10 @@ public abstract class AbstractWebDriverPage extends AbstractPage {
 		driver.get(url.toString());
 	}
 
+	public AbstractWebDriverPage(String url) throws MalformedURLException, IOException {
+		this(toUrl(url));
+	}
+
 	public void close() {
 		driver.quit();
 	}
@@ -35,6 +41,10 @@ public abstract class AbstractWebDriverPage extends AbstractPage {
 	 */
 	protected List<WebElement> getRows(WebElement webElement) {
 		return webElement.findElements(By.tagName("tr"));
+	}
+
+	protected List<WebElement> getRows(String id) {
+		return getRows(driver.findElement(By.id(id)));	
 	}
 
 	/**

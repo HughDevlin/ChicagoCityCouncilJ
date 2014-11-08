@@ -1,10 +1,10 @@
-package com.hughjdevlin.ccc;
+package com.hughjdevlin.legislature;
 
 import java.net.URL;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Person {
+public class Legislator {
 	public static int MAYOR = 51;
 	public static int CLERK = 52;
 	private String name;
@@ -16,7 +16,7 @@ public class Person {
 	 * @param url
 	 * @param role
 	 */
-	public Person(String name, URL url, String role) {
+	public Legislator(String name, URL url, String role) {
 		this.name = name;
 		this.url = url;
 		if(StringUtils.isNumeric(role))

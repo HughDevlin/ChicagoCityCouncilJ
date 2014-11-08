@@ -1,12 +1,15 @@
 /**
  * 
  */
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.hughjdevlin.legislature.page.VotePage;
 
 /**
  * @author hugh
@@ -26,6 +29,14 @@ public class VotePageTest {
 	@Test
 	public void testVotesCount() {
 		assertEquals("votes count", 50, page.votes().size());
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		page.close();
 	}
 
 }

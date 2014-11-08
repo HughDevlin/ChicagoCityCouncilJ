@@ -3,7 +3,7 @@
  * page-able
  * 
  */
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.hughjdevlin.ccc.Legislation;
+import com.hughjdevlin.legislature.Legislation;
 
 public class MeetingPage extends AbstractWebDriverPage {
 	
@@ -35,7 +35,7 @@ public class MeetingPage extends AbstractWebDriverPage {
 	    		continue;
 	    	WebElement td = tds.get(0); // 1st column
 	    	String name = normalize(td.getText());
-	    	if(name.length()==0)
+	    	if(name.length() == 0)
 	    		continue;
 	    	String href = td.findElement(By.tagName("a")).getAttribute("href");
 	    	URL url = new URL(StringUtils.substringBeforeLast(href, "&Options=&Search="));
@@ -46,7 +46,7 @@ public class MeetingPage extends AbstractWebDriverPage {
 	    	String votesHref = StringUtils.substringBefore(StringUtils.substringAfter(tds.get(7).findElement(By.tagName("a")).getAttribute("onclick"), "'"), "'");
 	    	if(votesHref==null)
 	    		continue;
-	    	URL votesUrl = getUrl(votesHref);
+	    	URL votesUrl = toUrl(votesHref);
 	    	returnValue.add(new Legislation(name, type, title, status, result, url, votesUrl));
 	    }
 	 	return returnValue;

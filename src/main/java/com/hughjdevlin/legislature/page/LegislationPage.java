@@ -1,19 +1,20 @@
 /*
  * source of sponsors
  */
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.xml.sax.SAXException;
 
-public class LegislationPage extends AbstractDomPage {
+public class LegislationPage extends AbstractWebDriverPage {
 	
 	/**
 	 * @param url
@@ -28,22 +29,21 @@ public class LegislationPage extends AbstractDomPage {
 	
 	public List<String> sponsors() {
 		List<String> result = new ArrayList<String>();
-		NodeList trs = getRows("ctl00_ContentPlaceHolder1_tblSponsors");
-    	Element tr = (Element) trs.item(0);
-    	NodeList as = tr.getElementsByTagName("a");
-	    for(int i = 0; i < as.getLength(); i++) { // skip label
-	    	Element a = (Element) as.item(i);
-	    	String name = normalize(a.getTextContent());
+		List<WebElement> trs = getRows("ctl00_ContentPlaceHolder1_tblSponsors");
+    	WebElement tr = trs.get(0);
+    	List<WebElement> as = tr.findElements(By.tagName("a"));
+	    for(WebElement a : as) { // skip label
+	    	String name = normalize(a.getText());
 			result.add(name);
 	    }
 		return result;
 	}
 
 	public String pdf() {
-		NodeList trs = getRows("ctl00_ContentPlaceHolder1_tblAttachments");
-    	Element tr = (Element) trs.item(0);
-    	NodeList as = tr.getElementsByTagName("a");
-	    Element a = (Element) as.item(0);
+		List<WebElement> trs = getRows("ctl00_ContentPlaceHolder1_tblAttachments");
+    	WebElement tr = trs.get(0);
+    	List<WebElement> as = tr.findElements(By.tagName("a"));
+    	WebElement a = as.get(0);
 	    return a.getAttribute("href");
 	}
 

@@ -1,29 +1,29 @@
-package com.hughjdevlin.ccc.page;
+package com.hughjdevlin.legislature.page;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractPage {
-	protected static final String URL_BASE = "http://chicago.legistar.com/"; 
+	private static final String AUTHORITY = "chicago.legistar.com";
 	
 	/**
 	 * File portion to URL; prepend base
-	 * @param url file portion
+	 * @param path file portion
 	 * @return
 	 * @throws MalformedURLException
 	 */
-	public static URL getUrl(String url) throws MalformedURLException {
-		return new URL(URL_BASE + url);
+	public static URL toUrl(String path) throws MalformedURLException {
+		return new URL("https://" + AUTHORITY + "/" + path);
 	}
 
 	/**
-	 * URL to shortened Stringl trim base
-	 * @param url
+	 * trim scheme and authority prefix
+	 * @param url URL to shortened 
 	 * @return file portion
 	 */
-	public static String getUrl(URL url) {
-		return StringUtils.substringAfter(url.toString(), URL_BASE);
+	public static String toPath(URL url) {
+		return StringUtils.substringAfterLast(url.toString(), "/");
 	}
 	
 	/**
